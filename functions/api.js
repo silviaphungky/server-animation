@@ -1,14 +1,5 @@
 const express = require('express')
 require('dotenv').config()
-const io = require('socket.io')(8080)
-
-io.on('connection', (socket) => {
-  console.log('socket connected *******')
-  // socket.on('sendTest', (params) => {
-  //   socket.params = params
-  // })
-  // io.emit('getTest', socket.params)
-})
 
 const app = express()
 app.use(express.json())
@@ -44,7 +35,18 @@ router.post('/animation', (req, res) => {
         .json({ message: 'Successfully create animation', data: animation })
     )
   } catch (error) {
+    res.status(500)
     console.log(error, 'Failed create animation')
+  }
+})
+
+router.get('/animation/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const animation = await Animation.findById(id)
+    res.status(200).json({ animation })
+  } catch (error) {
+    res.status(500)
   }
 })
 
