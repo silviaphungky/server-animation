@@ -48,6 +48,25 @@ router.get('/animation/:id', async (req, res) => {
   }
 })
 
+router.get('/animations', async (req, res) => {
+  try {
+    const animations = await Animation.find()
+    res.status(200).json({ animations })
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
+router.get('/animation/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const animation = await Animation.findById(id)
+    res.status(200).json({ animation })
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 router.put('/animation/:id', async (req, res) => {
   try {
     const { id } = req.params
