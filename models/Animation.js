@@ -5,6 +5,14 @@ const animationSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
+  gifUrl: {
+    type: String,
+    required: false,
+  },
 })
 
 const Animation = mongoose.model('Animation', animationSchema)
